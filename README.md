@@ -17,3 +17,19 @@ CREATE SCHEMA WorldLayoffs;
 USE WorldLayoffs;
 CREATE TABLE layoffs_staging LIKE layoffs;
 INSERT INTO layoffs_staging SELECT * FROM layoffs;
+
+2. Remove Duplicates
+To remove duplicates:
+- A new column is added to calculate how many times each row appears based on key fields.
+- Duplicates are identified using a ROW_NUMBER() function.
+```sql
+SELECT *,
+ROW_NUMBER() OVER (
+    PARTITION BY company, location, industry, total_laid_off, percentage_laid_off, `date`
+) AS row_num
+FROM layoffs_staging;
+
+- The duplicate rows are then deleted from the data.
+```sql
+DELETE FROM layoffs_staging2 WHERE row_num > 1;
+
