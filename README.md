@@ -18,7 +18,7 @@ USE WorldLayoffs;
 CREATE TABLE layoffs_staging LIKE layoffs;
 INSERT INTO layoffs_staging SELECT * FROM layoffs;
 
-2. Remove Duplicates
+# 2. Remove Duplicates
 To remove duplicates:
 - A new column is added to calculate how many times each row appears based on key fields.
 - Duplicates are identified using a ROW_NUMBER() function.
