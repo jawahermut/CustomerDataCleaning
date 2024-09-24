@@ -28,9 +28,11 @@ SELECT *,
 ROW_NUMBER() OVER (
     PARTITION BY company, location, industry, total_laid_off, percentage_laid_off, `date`
 ) AS row_num
-FROM layoffs_staging; ```
+FROM layoffs_staging;
+```
 
 - The duplicate rows are then deleted from the data.
 ```sql
-DELETE FROM layoffs_staging2 WHERE row_num > 1;```
+DELETE FROM layoffs_staging2 WHERE row_num > 1;
+```
 
